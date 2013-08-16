@@ -1,7 +1,11 @@
 JMSPayment Bridge
 =================
 
-This bridge allows you to use JMSPayment plugins with all the power of PayumBundle. There JMSPayment are a set of bundles written by Johannes Schmitt, more info on his [official site](http://jmsyst.com/bundles/JMSPaymentCoreBundle).
+There are set of payment bundles written by Johannes Schmitt and others, now you can reuse them inside PayumBundle. 
+
+* [jms bundles official site](http://jmsyst.com/bundles/JMSPaymentCoreBundle).
+* [payum bundle](https://github.com/Payum/PayumBundle).
+* [sandbox exampel, see others section](https://github.com/Payum/PayumBundleSandbox).
 
 ## Before you can started
 
