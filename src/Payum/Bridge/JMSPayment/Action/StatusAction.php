@@ -31,7 +31,7 @@ class StatusAction implements ActionInterface
             return;
         }
 
-        if (in_array($payment->getState(), array(PaymentInterface::STATE_APPROVING, PaymentInterface::STATE_DEPOSITING))) {
+        if (in_array($payment->getState(), array(PaymentInterface::STATE_DEPOSITING))) {
             $request->markPending();
 
             return;
@@ -55,7 +55,7 @@ class StatusAction implements ActionInterface
             return;
         }
 
-        if (in_array($payment->getState(), array(PaymentInterface::STATE_NEW))) {
+        if (in_array($payment->getState(), array(PaymentInterface::STATE_NEW, PaymentInterface::STATE_APPROVING))) {
             $request->markNew();
 
             return;

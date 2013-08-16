@@ -18,10 +18,7 @@ class JMSPaymentPaymentFactory extends AbstractPaymentFactory
         $paymentId = parent::create($container, $contextName, $config);
         $paymentDefinition = $container->getDefinition($paymentId);
 
-        $pluginControllerDefinition = new DefinitionDecorator($config['plugin_controller_service']);
-        $pluginControllerId = 'payum.context.'.$contextName.'.pluginController';
-        $container->setDefinition($pluginControllerId, $pluginControllerDefinition);
-        $paymentDefinition->addMethodCall('addApi', array(new Reference($pluginControllerId)));
+        $paymentDefinition->addMethodCall('addApi', array(new Reference($config['plugin_controller_service'])));
 
         $captureActionDefinition = new Definition;
         $captureActionDefinition->setClass('Payum\Bridge\JMSPayment\Action\CaptureAction');
@@ -48,7 +45,6 @@ class JMSPaymentPaymentFactory extends AbstractPaymentFactory
         $builder
             ->children()
                 ->scalarNode('plugin_controller_service')
-                    ->isRequired()
                     ->cannotBeEmpty()
                     ->defaultValue('payment.plugin_controller')
                 ->end()
