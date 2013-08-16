@@ -5,7 +5,7 @@ There are set of payment bundles written by Johannes Schmitt and others, now you
 
 * [jms bundles official site](http://jmsyst.com/bundles/JMSPaymentCoreBundle).
 * [payum bundle](https://github.com/Payum/PayumBundle).
-* [sandbox exampel, see others section](https://github.com/Payum/PayumBundleSandbox).
+* [sandbox example, see others section](https://github.com/Payum/PayumBundleSandbox).
 
 ## Before you can started
 
