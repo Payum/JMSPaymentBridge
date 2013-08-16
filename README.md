@@ -10,7 +10,7 @@ There are set of payment bundles written by Johannes Schmitt and others, now you
 ## Before you can started
 
 By default PayumBundle knows nothing about jms payment bridge.
-To make payum be aware of jms you have to add its factory.
+To make payum be aware of it you have to add its factory.
 Let's suppose you have `AcmePaymentBundle`.
 You have to add factory inside its build method:
 
