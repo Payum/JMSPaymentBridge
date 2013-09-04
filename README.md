@@ -92,7 +92,7 @@ public function prepareAction(Request $request)
     $this->getDoctrine()->getManager()->persist($payment);
     $this->getDoctrine()->getManager()->flush();
 
-    $captureToken = $this->get('payum.token_manager')->createTokenForCaptureRoute(
+    $captureToken = $this->get('payum.security.token_factory')->createTokenForCaptureRoute(
         $paymentName,
         $payment,
         'purchase_done_paypal_via_jms_plugin'
@@ -133,7 +133,7 @@ It's the route of action where we are redirected after the capture is done. In t
 <?php
 public function viewAction(Request $request)
 {
-    $token = $this->get('payum.token_manager')->getTokenFromRequest($request);
+    $token = $this->get('payum.security.http_request_verifier')->verify($request);
 
     $status = new BinaryMaskStatusRequest($token);
 
