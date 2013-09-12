@@ -54,6 +54,12 @@ jms_payment_paypal:
     debug:                                                true
 
 payum:
+    security:
+        token_storage:
+            Acme\PaymentBundle\Entity\PayumSecurityToken:
+                doctrine:
+                    driver: orm
+
     contexts:
         paypal_express_checkout_via_jms_plugin:
             jms_payment_plugin: ~
@@ -61,12 +67,6 @@ payum:
                 JMS\Payment\CoreBundle\Entity\Payment:
                     doctrine:
                         driver: orm
-                        payment_extension: true
-                Acme\PaymentBundle\Model\TokenizedDetails:
-                    filesystem:
-                        storage_dir: %kernel.root_dir%/Resources/payments
-                        id_property: token
-                        payment_extension: true
 ```
 
 Not so hard so far, let's continue.
