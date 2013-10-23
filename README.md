@@ -10,7 +10,7 @@ There are set of payment bundles written by Johannes Schmitt and others, now you
 
 ## Resources
 
-* [Documentation](docs/index.md)
+* [Documentation](http://payum.forma-dev.com/documentation#JMSPaymentBridge)
 * [Questions](http://stackoverflow.com/questions/tagged/payum)
 * [Issue Tracker](https://github.com/Payum/JMSPaymentBridge/issues)
 
