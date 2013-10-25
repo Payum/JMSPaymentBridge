@@ -3,16 +3,13 @@
 
 There are set of payment bundles written by Johannes Schmitt and others, now you can reuse them inside PayumBundle.
 
-* [jms bundles official site](http://jmsyst.com/bundles/JMSPaymentCoreBundle).
-* [payum bundle](https://github.com/Payum/PayumBundle).
-* [sandbox example, see others section](https://github.com/Payum/PayumBundleSandbox).
-
-
 ## Resources
 
 * [Documentation](http://payum.forma-dev.com/documentation#JMSPaymentBridge)
+* [The plugins official site](http://jmsyst.com/bundles/JMSPaymentCoreBundle).
 * [Questions](http://stackoverflow.com/questions/tagged/payum)
 * [Issue Tracker](https://github.com/Payum/JMSPaymentBridge/issues)
+* [Twitter](https://twitter.com/payumphp)
 
 ## Contributing
 
