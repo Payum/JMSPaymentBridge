@@ -4,9 +4,9 @@ namespace Payum\Bridge\JMSPayment\Action;
 use JMS\Payment\CoreBundle\Model\PaymentInterface;
 use JMS\Payment\CoreBundle\Plugin\Exception\Action\VisitUrl;
 use JMS\Payment\CoreBundle\Plugin\Exception\ActionRequiredException;
-use Payum\Exception\RequestNotSupportedException;
-use Payum\Request\CaptureRequest;
-use Payum\Request\RedirectUrlInteractiveRequest;
+use Payum\Core\Exception\RequestNotSupportedException;
+use Payum\Core\Request\CaptureRequest;
+use Payum\Core\Request\RedirectUrlInteractiveRequest;
 
 class CaptureAction extends BaseApiAwareAction
 {
