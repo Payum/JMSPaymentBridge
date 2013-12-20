@@ -3,7 +3,7 @@ namespace Payum\Bridge\JMSPayment\Action;
 
 use JMS\Payment\CoreBundle\PluginController\PluginControllerInterface;
 use Payum\Core\Action\ActionInterface;
-use Payum\ApiAwareInterface;
+use Payum\Core\ApiAwareInterface;
 use Payum\Core\Exception\UnsupportedApiException;
 
 abstract class BaseApiAwareAction implements ActionInterface, ApiAwareInterface

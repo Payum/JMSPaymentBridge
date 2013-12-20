@@ -2,12 +2,8 @@
 namespace Payum\Bridge\JMSPayment\Action;
 
 use JMS\Payment\CoreBundle\Model\PaymentInterface;
-use JMS\Payment\CoreBundle\Plugin\Exception\Action\VisitUrl;
-use JMS\Payment\CoreBundle\Plugin\Exception\ActionRequiredException;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\Request\CaptureRequest;
-use Payum\Core\Request\RedirectUrlInteractiveRequest;
 use Payum\Core\Request\StatusRequestInterface;
 
 class StatusAction implements ActionInterface

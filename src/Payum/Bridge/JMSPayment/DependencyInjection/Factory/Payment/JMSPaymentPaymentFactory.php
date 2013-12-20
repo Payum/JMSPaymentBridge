@@ -5,7 +5,6 @@ use Payum\Bundle\PayumBundle\DependencyInjection\Factory\Payment\AbstractPayment
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
 
 class JMSPaymentPaymentFactory extends AbstractPaymentFactory
