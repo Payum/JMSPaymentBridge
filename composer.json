@@ -21,7 +21,8 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "payum/payum-bundle": "0.7.*",
+        "payum/core": "0.8.*@dev",
+        "payum/payum-bundle": "0.8.*@dev",
         "jms/payment-core-bundle": "~1"
     },
     "require-dev": {
@@ -35,7 +36,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.7-dev"
+            "dev-master": "0.8-dev"
         }
     }
 }
