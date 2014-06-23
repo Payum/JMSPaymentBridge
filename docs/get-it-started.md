@@ -60,6 +60,12 @@ jms_payment_paypal:
     debug:                                                true
 
 payum:
+    storages:
+        JMS\Payment\CoreBundle\Entity\Payment:
+            payment:
+                contexts: [your_payment_name]
+            doctrine:
+                driver: orm
     security:
         token_storage:
             Acme\PaymentBundle\Entity\PayumSecurityToken:
@@ -69,10 +75,6 @@ payum:
     contexts:
         your_payment_name:
             jms_payment_plugin: ~
-            storages:
-                JMS\Payment\CoreBundle\Entity\Payment:
-                    doctrine:
-                        driver: orm
 ```
 
 _**Attention**: You have to changed `your_payment_name` to something more descriptive and domain related, for example `post_a_job_with_paypal`._
