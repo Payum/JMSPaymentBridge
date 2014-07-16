@@ -5,7 +5,7 @@ There are set of payment bundles written by Johannes Schmitt and others, now you
 
 ## Resources
 
-* [Documentation](http://payum.forma-dev.com/documentation#JMSPaymentBridge)
+* [Documentation](http://payum.org/doc#JMSPaymentBridge)
 * [The plugins official site](http://jmsyst.com/bundles/JMSPaymentCoreBundle).
 * [Questions](http://stackoverflow.com/questions/tagged/payum)
 * [Issue Tracker](https://github.com/Payum/JMSPaymentBridge/issues)
