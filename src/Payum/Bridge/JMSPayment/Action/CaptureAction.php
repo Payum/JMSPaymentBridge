@@ -5,34 +5,38 @@ use JMS\Payment\CoreBundle\Model\PaymentInterface;
 use JMS\Payment\CoreBundle\Plugin\Exception\Action\VisitUrl;
 use JMS\Payment\CoreBundle\Plugin\Exception\ActionRequiredException;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\Request\CaptureRequest;
-use Payum\Core\Request\Http\RedirectUrlInteractiveRequest;
+use Payum\Core\Reply\HttpRedirect;
+use Payum\Core\Request\Capture;
 
 class CaptureAction extends BaseApiAwareAction
 {
     /**
      * {@inheritDoc}
+     *
+     * @param Capture $request
      */
     public function execute($request)
     {
-        if (false == $this->supports($request)) {
-            throw RequestNotSupportedException::createActionNotSupported($this, $request);
-        }
+        RequestNotSupportedException::assertSupports($this, $request);
 
         /** @var PaymentInterface $payment */
         $payment = $request->getModel();
 
         $result = $this->pluginController->approveAndDeposit($payment->getId(), $payment->getTargetAmount());
 
-        if ($ex = $result->getPluginException()) {
-            if ($ex instanceof ActionRequiredException) {
-                $action = $ex->getAction();
-                if ($action instanceof VisitUrl) {
-                    throw new RedirectUrlInteractiveRequest($action->getUrl());
+        if ($exception = $result->getPluginException()) {
+            if ($exception instanceof ActionRequiredException) {
+                if ($exception->getAction() instanceof VisitUrl) {
+                    throw new HttpRedirect($exception->getAction()->getUrl());
                 }
+
+                throw new \LogicException(sprintf(
+                    'The given action required exception %s could not be converted to payum\'s reply.',
+                    get_class($exception)
+                ));
             }
 
-            throw $ex;
+            throw $exception;
         }
     }
 
@@ -42,7 +46,7 @@ class CaptureAction extends BaseApiAwareAction
     public function supports($request)
     {
         return
-            $request instanceof CaptureRequest &&
+            $request instanceof Capture &&
             $request->getModel() instanceof PaymentInterface
         ;
     }

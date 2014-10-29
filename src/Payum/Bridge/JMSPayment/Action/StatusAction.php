@@ -4,25 +4,24 @@ namespace Payum\Bridge\JMSPayment\Action;
 use JMS\Payment\CoreBundle\Model\PaymentInterface;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\Request\StatusRequestInterface;
+use Payum\Core\Request\GetStatusInterface;
 
 class StatusAction implements ActionInterface
 {
     /**
      * {@inheritDoc}
+     *
+     * @param GetStatusInterface $request
      */
     public function execute($request)
     {
-        /** @var $request StatusRequestInterface */
-        if (false == $this->supports($request)) {
-            throw RequestNotSupportedException::createActionNotSupported($this, $request);
-        }
+        RequestNotSupportedException::assertSupports($this, $request);
 
         /** @var PaymentInterface $payment */
         $payment = $request->getModel();
 
         if (in_array($payment->getState(), array(PaymentInterface::STATE_APPROVED, PaymentInterface::STATE_DEPOSITED))) {
-            $request->markSuccess();
+            $request->markCaptured();
 
             return;
         }
@@ -66,7 +65,7 @@ class StatusAction implements ActionInterface
     public function supports($request)
     {
         return
-            $request instanceof StatusRequestInterface &&
+            $request instanceof GetStatusInterface &&
             $request->getModel() instanceof PaymentInterface
         ;
     }
