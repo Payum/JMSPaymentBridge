@@ -61,16 +61,10 @@ jms_payment_paypal:
 
 payum:
     storages:
-        JMS\Payment\CoreBundle\Entity\Payment:
-            payment:
-                contexts: [your_payment_name]
-            doctrine:
-                driver: orm
+        JMS\Payment\CoreBundle\Entity\Payment: { doctrine: orm }
     security:
         token_storage:
-            Acme\PaymentBundle\Entity\PayumSecurityToken:
-                doctrine:
-                    driver: orm
+            Acme\PaymentBundle\Entity\PayumSecurityToken: { doctrine: orm }
 
     contexts:
         your_payment_name:
