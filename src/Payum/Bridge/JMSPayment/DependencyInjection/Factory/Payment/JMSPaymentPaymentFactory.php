@@ -12,26 +12,25 @@ class JMSPaymentPaymentFactory extends AbstractPaymentFactory
     /**
      * {@inheritDoc}
      */
-    public function create(ContainerBuilder $container, $contextName, array $config)
+    public function getName()
     {
-        $paymentId = parent::create($container, $contextName, $config);
-        $paymentDefinition = $container->getDefinition($paymentId);
+        return 'jms_payment_plugin';
+    }
 
-        $paymentDefinition->addMethodCall('addApi', array(new Reference($config['plugin_controller_service'])));
+    /**
+     * {@inheritDoc}
+     */
+    protected function getPayumPaymentFactoryClass()
+    {
+        return 'Payum\Bridge\JMSPayment\PaymentFactory';
+    }
 
-        $captureActionDefinition = new Definition;
-        $captureActionDefinition->setClass('Payum\Bridge\JMSPayment\Action\CaptureAction');
-        $captureActionId = 'payum.context.'.$contextName.'.action.capture';
-        $container->setDefinition($captureActionId, $captureActionDefinition);
-        $paymentDefinition->addMethodCall('addAction', array(new Reference($captureActionId)));
-
-        $statusActionDefinition = new Definition;
-        $statusActionDefinition->setClass('Payum\Bridge\JMSPayment\Action\StatusAction');
-        $statusActionId = 'payum.context.'.$contextName.'.action.status';
-        $container->setDefinition($statusActionId, $statusActionDefinition);
-        $paymentDefinition->addMethodCall('addAction', array(new Reference($statusActionId)));
-
-        return $paymentId;
+    /**
+     * {@inheritDoc}
+     */
+    protected function getComposerPackage()
+    {
+        return 'payum/jms-payment-bridge';
     }
 
     /**
@@ -52,10 +51,16 @@ class JMSPaymentPaymentFactory extends AbstractPaymentFactory
     }
 
     /**
-     * {@inheritDoc}
+     * @param ContainerBuilder $container
+     * @param $paymentName
+     * @param array $config
+     *
+     * @return Definition
      */
-    public function getName()
+    protected function createPayment(ContainerBuilder $container, $paymentName, array $config)
     {
-        return 'jms_payment_plugin';
+        $config['payum.api'] = new Reference($config['plugin_controller_service']);
+
+        return parent::createPayment($container, $paymentName, $config);
     }
 }
