@@ -4,7 +4,7 @@ Steps:
 
 * [Download libraries](#download-libraries)
 * [Configure context](#configure-context)
-* [Prepare payment](#prepare-payment)
+* [Prepare gateway](#prepare-gateway)
 
 _**Note** : We assume you followed all steps in [get it started](https://github.com/Payum/PayumBundle/blob/master/Resources/doc/get_it_started.md) and your basic configuration same as described there._
 
@@ -13,7 +13,7 @@ _**Note** : We assume you followed all steps in [get it started](https://github.
 Run the following command:
 
 ```bash
-$ php composer.phar require "payum/jms-payment-bridge:*@stable"
+$ php composer.phar require payum/jms-payment-bridge
 ```
 
 ## Configure context
@@ -27,7 +27,7 @@ You have to add factory inside its build method:
 <?php
 namespace Acme\PaymentBundle;
 
-use Payum\Bridge\JMSPayment\DependencyInjection\Factory\Payment\JMSPaymentPaymentFactory;
+use Payum\Bridge\JMSPayment\DependencyInjection\Factory\Gateway\JmsGatewayFactory;
 use Payum\Bundle\PayumBundle\DependencyInjection\PayumExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -42,7 +42,7 @@ class AcmePaymentBundle extends Bundle
         /** @var  PayumExtension $payumExtension */
         $payumExtension = $container->getExtension('payum');
 
-        $payumExtension->addPaymentFactory(new JMSPaymentPaymentFactory);
+        $payumExtension->addGatewayFactory(new JmsGatewayFactory);
     }
 }
 ```
@@ -66,7 +66,7 @@ payum:
         token_storage:
             Acme\PaymentBundle\Entity\PayumSecurityToken: { doctrine: orm }
 
-    contexts:
+    gateways:
         your_payment_name:
             jms_payment_plugin: ~
 ```
@@ -84,7 +84,7 @@ Please note that you have to set details in the jms plugin specific format.
 <?php
 public function prepareAction(Request $request)
 {
-    $paymentName = 'your_payment_name';
+    $gatewayName = 'your_payment_name';
 
     $paymentInstruction = new PaymentInstruction(
         100,
@@ -100,7 +100,7 @@ public function prepareAction(Request $request)
     $this->getDoctrine()->getManager()->flush();
 
     $captureToken = $this->get('payum.security.token_factory')->createCaptureToken(
-        $paymentName,
+        $gatewayName,
         $payment,
         'purchase_done'
     );

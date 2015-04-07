@@ -1,13 +1,13 @@
 <?php
-namespace Payum\Bridge\JMSPayment\DependencyInjection\Factory\Payment;
+namespace Payum\Bridge\JMSPayment\DependencyInjection\Factory\Gateway;
 
-use Payum\Bundle\PayumBundle\DependencyInjection\Factory\Payment\AbstractPaymentFactory;
+use Payum\Bundle\PayumBundle\DependencyInjection\Factory\Gateway\AbstractGatewayFactory;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-class JMSPaymentPaymentFactory extends AbstractPaymentFactory
+class JmsGatewayFactory extends AbstractGatewayFactory
 {
     /**
      * {@inheritDoc}
@@ -20,9 +20,9 @@ class JMSPaymentPaymentFactory extends AbstractPaymentFactory
     /**
      * {@inheritDoc}
      */
-    protected function getPayumPaymentFactoryClass()
+    protected function getPayumGatewayFactoryClass()
     {
-        return 'Payum\Bridge\JMSPayment\PaymentFactory';
+        return 'Payum\Bridge\JMSPayment\JmsGatewayFactory';
     }
 
     /**
@@ -52,15 +52,15 @@ class JMSPaymentPaymentFactory extends AbstractPaymentFactory
 
     /**
      * @param ContainerBuilder $container
-     * @param $paymentName
+     * @param $gatewayName
      * @param array $config
      *
      * @return Definition
      */
-    protected function createPayment(ContainerBuilder $container, $paymentName, array $config)
+    protected function createGateway(ContainerBuilder $container, $gatewayName, array $config)
     {
         $config['payum.api'] = new Reference($config['plugin_controller_service']);
 
-        return parent::createPayment($container, $paymentName, $config);
+        return parent::createGateway($container, $gatewayName, $config);
     }
 }
