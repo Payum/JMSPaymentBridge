@@ -7,6 +7,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * @deprecated since 1.0 and will be removed in 2.0
+ */
 class JmsGatewayFactory extends AbstractGatewayFactory
 {
     /**
