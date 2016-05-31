@@ -4,25 +4,25 @@ namespace Payum\Bridge\JMSPayment\Action;
 use JMS\Payment\CoreBundle\Model\PaymentInterface;
 use JMS\Payment\CoreBundle\Plugin\Exception\Action\VisitUrl;
 use JMS\Payment\CoreBundle\Plugin\Exception\ActionRequiredException;
-use JMS\Payment\CoreBundle\PluginController\EntityPluginController;
 use JMS\Payment\CoreBundle\PluginController\PluginControllerInterface;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\ApiAwareTrait;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Reply\HttpRedirect;
+use Payum\Core\Request\Authorize;
 use Payum\Core\Request\Capture;
 
 /**
  * @property PluginControllerInterface $api
  */
-class CaptureAction implements ActionInterface, ApiAwareInterface
+class AuthorizeAction implements ActionInterface, ApiAwareInterface
 {
     use ApiAwareTrait;
     
     public function __construct()
     {
-        $this->apiClass = EntityPluginController::class;
+        $this->apiClass = PluginControllerInterface::class;
     }
 
     /**
@@ -37,7 +37,7 @@ class CaptureAction implements ActionInterface, ApiAwareInterface
         /** @var PaymentInterface $payment */
         $payment = $request->getModel();
 
-        $result = $this->api->approveAndDeposit($payment->getId(), $payment->getTargetAmount());
+        $result = $this->api->approve($payment->getId(), $payment->getTargetAmount());
 
         if ($exception = $result->getPluginException()) {
             if ($exception instanceof ActionRequiredException) {
@@ -61,7 +61,7 @@ class CaptureAction implements ActionInterface, ApiAwareInterface
     public function supports($request)
     {
         return
-            $request instanceof Capture &&
+            $request instanceof Authorize &&
             $request->getModel() instanceof PaymentInterface
         ;
     }
