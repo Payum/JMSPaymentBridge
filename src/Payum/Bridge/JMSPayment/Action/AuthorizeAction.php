@@ -4,6 +4,7 @@ namespace Payum\Bridge\JMSPayment\Action;
 use JMS\Payment\CoreBundle\Model\PaymentInterface;
 use JMS\Payment\CoreBundle\Plugin\Exception\Action\VisitUrl;
 use JMS\Payment\CoreBundle\Plugin\Exception\ActionRequiredException;
+use JMS\Payment\CoreBundle\PluginController\EntityPluginController;
 use JMS\Payment\CoreBundle\PluginController\PluginControllerInterface;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\ApiAwareInterface;
@@ -22,7 +23,7 @@ class AuthorizeAction implements ActionInterface, ApiAwareInterface
     
     public function __construct()
     {
-        $this->apiClass = PluginControllerInterface::class;
+        $this->apiClass = EntityPluginController::class;
     }
 
     /**
